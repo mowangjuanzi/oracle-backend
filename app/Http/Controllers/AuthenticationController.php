@@ -40,7 +40,7 @@ class AuthenticationController extends Controller
 
         return ResponseService::success([
             "nickname" => $auth->nickname,
-            "roles" => [],
+            "roles" => [$auth->id === 1 ? "admin" : "editor"],
         ]);
     }
 }

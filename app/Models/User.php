@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @property String $nickname 昵称
+ * @property int $id 自增ID
+ * @property string $nickname 昵称
  */
 class User extends Authenticatable
 {
