@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,8 +14,6 @@ return new class extends Migration
             $table->id();
             $table->string("nickname")->default('')->comment('昵称');
             $table->string('username')->default('')->comment('用户名');
-            $table->string('mobile')->default('')->comment('手机号');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamp("token_expired_at")->nullable()->comment('token 过期时间');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\AuthenticationService;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
@@ -27,5 +28,19 @@ class AuthenticationController extends Controller
         AuthenticationService::incrementLoginAttempts($request);
 
         return ResponseService::error("用户名或者密码错误");
+    }
+
+    /**
+     * 当前登录用户的基础信息
+     */
+    public function info(Request $request)
+    {
+        /** @var User $auth */
+        $auth = $request->user();
+
+        return ResponseService::success([
+            "nickname" => $auth->nickname,
+            "roles" => [],
+        ]);
     }
 }
