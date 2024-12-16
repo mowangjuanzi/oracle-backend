@@ -12,11 +12,10 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string("nickname")->default('')->comment('昵称');
+            $table->string('nickname')->default('')->comment('昵称');
             $table->string('username')->default('')->comment('用户名');
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp("token_expired_at")->nullable()->comment('token 过期时间');
             $table->timestamps();
         });
 

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,7 @@ class AuthenticationService
 
     /**
      * 尝试登录
+     *
      * @param array{username: string, password: string} $credentials
      */
     public static function attemptLogin(array $credentials)
@@ -63,6 +65,7 @@ class AuthenticationService
 
         if ($user && $provider->validateCredentials($user, $credentials)) {
             Auth::setUser($user);
+
             return true;
         }
 
@@ -71,16 +74,19 @@ class AuthenticationService
 
     /**
      * 发送登录成功后的响应
+     *
      * @return array{token: string}
      */
     public static function sendLoginResponse(Request $request): array
     {
         self::clearLoginAttempts($request);
 
+        /** @var User $user */
+        $user = Auth::user();
         $token = $user->createToken('admin');
 
         return [
-            "token" => $token->plainTextToken,
+            'token' => $token->plainTextToken,
         ];
     }
 

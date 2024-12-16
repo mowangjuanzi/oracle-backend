@@ -27,7 +27,7 @@ class AuthenticationController extends Controller
 
         AuthenticationService::incrementLoginAttempts($request);
 
-        return ResponseService::error("用户名或者密码错误");
+        return ResponseService::error('用户名或者密码错误');
     }
 
     /**
@@ -39,8 +39,8 @@ class AuthenticationController extends Controller
         $auth = $request->user();
 
         return ResponseService::success([
-            "nickname" => $auth->nickname,
-            "roles" => [$auth->id === 1 ? "admin" : "editor"],
+            'nickname' => $auth->nickname,
+            'roles' => [$auth->id === 1 ? 'admin' : 'editor'],
         ]);
     }
 }
