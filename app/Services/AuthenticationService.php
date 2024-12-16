@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -79,14 +77,10 @@ class AuthenticationService
     {
         self::clearLoginAttempts($request);
 
-        /** @var User $user */
-        $user = Auth::user();
-        $user['remember_token'] = hash('sha256', $plainTextToken = Str::random(40));
-        $user['token_expired_at'] = Carbon::now()->addDays(config('bsr.token_ttl'));
-        $user->save();
+        $token = $user->createToken('admin');
 
         return [
-            "token" => $plainTextToken
+            "token" => $token->plainTextToken,
         ];
     }
 

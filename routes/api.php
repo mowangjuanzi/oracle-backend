@@ -8,6 +8,6 @@ use Illuminate\Support\Facades\Route;
  */
 Route::prefix("auth")->group(function () {
     Route::post("login", [AuthenticationController::class, 'login']);
-    Route::get("info", [AuthenticationController::class, 'info'])->middleware("auth");
+    Route::get("info", [AuthenticationController::class, 'info'])->middleware("auth:sanctum");
 });
 
