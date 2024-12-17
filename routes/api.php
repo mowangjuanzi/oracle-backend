@@ -8,5 +8,9 @@ use Illuminate\Support\Facades\Route;
  */
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthenticationController::class, 'login']);
-    Route::get('info', [AuthenticationController::class, 'info'])->middleware('auth:sanctum');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('info', [AuthenticationController::class, 'info']);
+        Route::put('password', [AuthenticationController::class, 'passwordUpdate']);
+    });
 });

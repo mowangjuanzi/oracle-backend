@@ -43,4 +43,25 @@ class AuthenticationController extends Controller
             'roles' => [$auth->id === 1 ? 'admin' : 'editor'],
         ]);
     }
+
+    /**
+     * 更新密码
+     */
+    public function passwordUpdate(Request $request)
+    {
+        /** @var User $auth */
+        $auth = $request->user();
+
+        $input = $request->validate([
+            'current' => ['required', 'string', 'current_password'],
+            'password' => ['required', 'string', 'confirmed'],
+        ], [], [
+            'current' => '当前密码',
+            'password' => '新密码',
+        ]);
+
+        $auth->update(['password' => bcrypt($input['password'])]);
+
+        return ResponseService::success();
+    }
 }

@@ -12,7 +12,7 @@ class ResponseService
     /**
      * 操作失败
      */
-    public static function success(array $data, string $message = '操作成功'): JsonResponse
+    public static function success(array $data = [], string $message = '操作成功'): JsonResponse
     {
         return response()->json([
             'code' => 0,

@@ -4,6 +4,7 @@ use App\Services\ResponseService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,9 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->respond(function (Response $response) {
-            if ($response->getStatusCode() === 401) {
-                return ResponseService::error('权限不足', 401);
+        $exceptions->respond(function (Response $response, Exception $e) {
+            // 处理表单验证异常
+            if ($e instanceof ValidationException) {
+                return ResponseService::error($e->validator->errors()->first());
             }
 
             return $response;

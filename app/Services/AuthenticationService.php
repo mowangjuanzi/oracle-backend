@@ -57,7 +57,7 @@ class AuthenticationService
      *
      * @param array{username: string, password: string} $credentials
      */
-    public static function attemptLogin(array $credentials)
+    public static function attemptLogin(array $credentials): bool
     {
         /** @var EloquentUserProvider $provider */
         $provider = Auth::getProvider();
@@ -103,6 +103,6 @@ class AuthenticationService
      */
     public static function incrementLoginAttempts(Request $request): void
     {
-        RateLimiter::hit(self::throttleKey($request), 60);
+        RateLimiter::hit(self::throttleKey($request));
     }
 }
