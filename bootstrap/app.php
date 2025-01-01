@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->respond(function (Response $response, Exception $e) {
+        $exceptions->respond(function (Response $response, Throwable $e) {
             // 处理表单验证异常
             if ($e instanceof ValidationException) {
                 return ResponseService::error($e->validator->errors()->first());

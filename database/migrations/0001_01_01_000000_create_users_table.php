@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('nickname')->default('')->comment('昵称');
             $table->string('username')->default('')->comment('用户名');
             $table->string('password');
-            $table->rememberToken();
+            $table->string('roles')->default('[]')->comment('角色');
             $table->timestamps();
         });
 
